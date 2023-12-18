@@ -62,13 +62,11 @@ class TestBooksCollector:
         books_for_children = collector.get_books_for_children()
         assert "Мгла" not in books_for_children
 
-    def test_add_same_book_once(self):
+    def test_add_same_book_twice(self):
         collector = BooksCollector()
         collector.add_new_book("Одноэтажная Америка")
-        try:
-            collector.add_new_book("Одноэтажная Америка")
-        except ValueError as e:
-            assert str(e) == 'Книга с таким названием уже существует'
+        collector.add_new_book("Одноэтажная Америка")
+        assert len(collector.get_books_genre()) == 1
 
     def test_get_book_genre(self, sample_collector):
         genre_book1 = sample_collector.get_book_genre("Звёздные войны")
